@@ -32,24 +32,28 @@ data.forEach(function(d){
     });
 
   // add X
-  var x = d3.scaleLinear().tickSizeInner(-height).tickFormat("")
+  var x = d3.scaleLinear()
     .domain([0, 160])
     .range([ 0, width ]);
     
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .attr("class", "grid x-grid")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x)
+        .tickSizeInner(-height)
+        .tickFormat(""));
 
   // add Y 
-  var y = d3.scaleLinear().tickSizeInner(-width).tickFormat("")
+  var y = d3.scaleLinear()
     .domain([0, 160])
     .range([ height, 0]);
     
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .attr("class", "grid x-grid")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(y)
+        .tickSizeInner(-width)
+        .tickFormat(""));
 
     svg.selectAll(".grid line")
     .attr("stroke", "#e0e0e0")
