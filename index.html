@@ -11,7 +11,7 @@
 <div id="cars2017"></div>
 
 <script>
-var margin = {top: 10, right: 30, bottom: 30, left: 60};
+var margin = {top: 20, right: 60, bottom: 60, left: 120};
 
 var width = 600 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
@@ -33,7 +33,7 @@ data.forEach(function(d){
 
   // add X
   var x = d3.scaleLinear()
-    .domain([0, 150])
+    .domain([0, 160])
     .range([ 0, width ]);
     
   svg.append("g")
@@ -42,7 +42,7 @@ data.forEach(function(d){
 
   // add Y 
   var y = d3.scaleLinear()
-    .domain([0, 122])
+    .domain([0, 160])
     .range([ height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
@@ -60,7 +60,10 @@ data.forEach(function(d){
             return y(d.AverageHighwayMPG);
         })
         .attr("r",5)
-        .style("fill","#69b3a2");
+        .style("fill","#69b3a2")
+        .style("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.8);
     
      svg.append("text")
         .attr("x",width/2)
