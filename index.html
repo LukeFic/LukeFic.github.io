@@ -47,6 +47,22 @@ data.forEach(function(d){
   svg.append("g")
     .call(d3.axisLeft(y));
 
+const xGrid = d3.axisBottom(xScale).tickSizeInner(-height).tickFormat("");
+const yGrid = d3.axisLeft(yScale).tickSizeInner(-width).tickFormat("");
+
+svg.append("g")
+    .attr("class", "grid x-grid")
+    .attr("transform", `translate(0, ${height})`)
+    .call(xGrid);
+
+svg.append("g")
+    .attr("class", "grid y-grid")
+    .call(yGrid);
+
+svg.selectAll(".grid line")
+    .attr("stroke", "#e0e0e0")
+    .attr("stroke-opacity", 0.7);
+
   // populate data
     svg.append("g")
         .selectAll("circle")
