@@ -11,12 +11,11 @@
 <div id="cars2017"></div>
 
 <script>
-// set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+var margin = {top: 10, right: 30, bottom: 30, left: 60};
 
-// append the svg object to the body of the page
+var width = 600 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
+    
 var svg = d3.select("#cars2017")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -25,34 +24,65 @@ var svg = d3.select("#cars2017")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-//Read the data
 d3.csv("cars2017.csv").then(function(data) {
 
-  // Add X axis
+data.forEach(function(d){
+        d["Average City MPG"] = +d["Average City MPG"];
+        d["Average Highway MPG"] = +d["Average Highway MPG"];
+    });
+
+  // add X
   var x = d3.scaleLinear()
-    .domain([0, 4000])
+    .domain([0, 150])
     .range([ 0, width ]);
+    
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
-  // Add Y axis
+  // add Y 
   var y = d3.scaleLinear()
-    .domain([0, 500000])
+    .domain([0, 122])
     .range([ height, 0]);
   svg.append("g")
     .call(d3.axisLeft(y));
 
-  // Add dots
-  svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-      .attr("cx", function (d) { return x(d.GrLivArea); } )
-      .attr("cy", function (d) { return y(d.SalePrice); } )
-      .attr("r", 1.5)
-      .style("fill", "#69b3a2")
+  // populate data
+    svg.append("g")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+            return x(d["Average City MPG"]);
+        })
+        .attr("cy", function(d){
+            return y(d["Average Highway MPG"]);
+        })
+        .attr("r",5)
+        .style("fill","#69b3a2");
+    
+     svg.append("text")
+        .attr("x",width/2)
+        .attr("y",height+45)
+        .style("text-anchor","middle")
+        .text("Average City MPG");
+
+
+    svg.append("text")
+        .attr("transform","rotate(-90)")
+        .attr("x",-height/2)
+        .attr("y",-50)
+        .style("text-anchor","middle")
+        .text("Average Highway MPG");
+
+
+    svg.append("text")
+        .attr("x",width/2)
+        .attr("y",-20)
+        .style("text-anchor","middle")
+        .style("font-size","18px")
+        .text("2017 Vehicle Fuel Economy");
 
 })
 
