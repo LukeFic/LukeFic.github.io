@@ -35,10 +35,10 @@ data.forEach(function(d){
 var x = d3.scaleLinear()
     .domain([
         d3.min(data, function(d){
-            return d.AverageCityMPG;
+            return d.AverageCityMPG - 5;
         }),
         d3.max(data, function(d){
-            return d.AverageCityMPG;
+            return d.AverageCityMPG + 5;
         })
     ])
     .range([0,width]);
@@ -53,10 +53,10 @@ var x = d3.scaleLinear()
 var y = d3.scaleLinear()
     .domain([
         d3.min(data, function(d){
-            return d.AverageHighwayMPG;
+            return d.AverageHighwayMPG - 5;
         }),
         d3.max(data, function(d){
-            return d.AverageHighwayMPG;
+            return d.AverageHighwayMPG + 5;
         })
     ])
     .range([height,0]);
