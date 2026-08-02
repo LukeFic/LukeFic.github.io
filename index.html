@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>2017 Fuel Economy Narative Visualization</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3-annotation.susielu.com/d3-annotation.js"></script>
     <style>
 #cars2017 {
     display: flex;
@@ -61,6 +62,16 @@ function drawScene(scene, data) { //switches between scenes; takes the scene num
         drawExplore(data);
     }
 }    
+    
+function addAnnotation(annotationData) {
+
+    const makeAnnotations = d3.annotation()
+        .type(d3.annotationLabel)
+        .annotations(annotationData);
+    svg.append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations);
+}
     
 //imports data
 d3.csv("cars2017.csv").then(function(data) {        
@@ -162,13 +173,19 @@ function drawOverview(data) {
     .style("font-weight", "bold")
     .text("Scene 1: Overall Fuel Economy");
 
-    svg.append("text")
-    .attr("x", width/2)
-    .attr("y", 50)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Notice the distint gap in the data");
-
+        addAnnotation([
+    {
+        note: {
+            label: "A large gap exists between traditional vehicles and high efficiency vehicles.",
+            title: "Fuel Economy Gap"
+        },
+        x: 330,
+        y: 130,
+        dx: 100,
+        dy: -50
+        }
+    ]);
+    
     }
 
 function drawElectricVehicles(data) {
@@ -294,11 +311,19 @@ function drawElectricVehicles(data) {
     .text("Scene 2: Breakdown by vehicle type");
 
     svg.append("text")
-    .attr("x", width/2)
-    .attr("y", 50)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Electric vehicles have significantly better fuel economy");
+
+    addAnnotation([
+    {
+        note:{
+            label:"Electric vehicles achieve the highest city and highway MPG.",
+            title:"Electric Vehicle Advantage"
+        },
+        x:500,
+        y:80,
+        dx:-120,
+        dy:40
+    }
+]);
 }
 
 function drawExplore(data) {
@@ -422,12 +447,19 @@ function drawExplore(data) {
     .style("font-weight", "bold")
     .text("Scene 3: Explore the data!");
 
-    svg.append("text")
-    .attr("x", width/2)
-    .attr("y", 50)
-    .attr("text-anchor", "middle")
-    .style("font-size", "16px")
-    .text("Hover over the data points to see more info");
+    addAnnotation([
+    {
+        note:{
+            label:"Explore individual vehicles by hovering over points.",
+            title:"Interactive Exploration"
+        },
+        x:250,
+        y:250,
+        dx:100,
+        dy:80
+    }
+]);
+    
     }
 
     
