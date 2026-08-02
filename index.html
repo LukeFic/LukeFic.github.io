@@ -386,7 +386,7 @@ function drawExplore(data) {
     .attr("stroke", "#e0e0e0")
     .attr("stroke-opacity", 0.7);
 
-  // populate data
+  // populate data and set up tool tips
     svg.append("g")
         .selectAll("circle")
         .data(data)
@@ -399,7 +399,7 @@ function drawExplore(data) {
             return y(d.AverageHighwayMPG);
         })
         .attr("r",5)
-        .on("mouseover", function(event,d){
+        .on("mouseover", function(d){
         d3.select(this)
         .attr("r",8);
         d3.select("#tooltip")
@@ -407,17 +407,17 @@ function drawExplore(data) {
         .html(
             "<strong>" + d.Make + "</strong><br>" +
             "Fuel Type: " + d.Fuel + "<br>" +
-            "Engine Cylinders: " + d.EngineCylinders + "<br>" +
+            "Engine Cylinders: " + d.EngineCyl + "<br>" +
             "City MPG: " + d.AverageCityMPG + "<br>" +
             "Highway MPG: " + d.AverageHighwayMPG
         )
-        .style("left",(event.pageX + 10) + "px")
-        .style("top",(event.pageY - 10) + "px");
+        .style("left",(d3.event.pageX + 10) + "px")
+        .style("top",(d3.event.pageY - 10) + "px");
         })
-        .on("mousemove", function(event){
+        .on("mousemove", function(){
         d3.select("#tooltip")
-        .style("left",(event.pageX + 10) + "px")
-        .style("top",(event.pageY - 10) + "px");
+        .style("left",(d3.event.pageX + 10) + "px")
+        .style("top",(d3.event.pageY - 10) + "px");
         })
         .on("mouseout", function(){
         d3.select(this)
