@@ -152,7 +152,6 @@ function drawOverview(data) {
         .attr("y",-50)
         .style("text-anchor","middle")
         .text("Average Highway MPG");
-    }
 
     //add text to scene
     svg.append("text")
@@ -169,6 +168,8 @@ function drawOverview(data) {
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
     .text("Each point represents one vehicle from 2017.");
+
+    }
 
 function drawElectricVehicles(data) {
 
@@ -250,11 +251,13 @@ function drawElectricVehicles(data) {
         .text("Average Highway MPG");
 
     //add legend
+    var color = d3.scaleOrdinal()
+    .domain(["Gasoline", "Diesel", "Electricity"])
+    .range(["steelblue", "orange", "green"]);
     var fuels = ["Gasoline", "Diesel", "Electricity"];
 
     var legend = svg.append("g")
     .attr("transform", "translate(" + (width - 120) + ",20)");
-    }
     legend.selectAll("rect")
     .data(fuels)
     .enter()
@@ -280,6 +283,7 @@ function drawElectricVehicles(data) {
     .text(function(d){
         return d;
     });
+}
 
 function drawExplore(data) {
 
