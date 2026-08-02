@@ -156,7 +156,7 @@ function drawOverview(data) {
     //add text to scene
     svg.append("text")
     .attr("x", width/2)
-    .attr("y", 200)
+    .attr("y", 30)
     .attr("text-anchor", "middle")
     .style("font-size", "18px")
     .style("font-weight", "bold")
@@ -164,10 +164,10 @@ function drawOverview(data) {
 
     svg.append("text")
     .attr("x", width/2)
-    .attr("y", 100)
+    .attr("y", 40)
     .attr("text-anchor", "middle")
     .style("font-size", "12px")
-    .text("Each point represents one vehicle from 2017.");
+    .text("Notice the distint gap in the data");
 
     }
 
@@ -257,7 +257,7 @@ function drawElectricVehicles(data) {
     var fuels = ["Gasoline", "Diesel", "Electricity"];
 
     var legend = svg.append("g")
-    .attr("transform", "translate(" + (width - 120) + ",20)");
+    .attr("transform", "translate(" + (width - 120) + ",300)");
     legend.selectAll("rect")
     .data(fuels)
     .enter()
