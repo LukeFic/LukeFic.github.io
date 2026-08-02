@@ -35,7 +35,20 @@ body {
 </div>
 
 <script>
-    
+let currentScene = 1;
+
+//positions the svg in the correct spot
+var margin = {top: 20, right: 60, bottom: 60, left: 120};
+var width = 600 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
+var svg = d3.select("#cars2017")
+      .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
 function drawScene(scene, data) { //switches between scenes; takes the scene number and data
     svg.selectAll("*").remove();
     if (scene == 1) {
@@ -54,7 +67,7 @@ d3.csv("cars2017.csv").then(function(data) {
 data.forEach(function(d){
     d.AverageCityMPG = +d.AverageCityMPG;
     d.AverageHighwayMPG = +d.AverageHighwayMPG;
-
+    });
     drawScene(currentScene, data);
 
     //functionality for next button    
@@ -66,21 +79,8 @@ data.forEach(function(d){
         }
         drawScene(currentScene, data);
     });
-
-});
 })
 
-//positions the svg in the correct spot
-var margin = {top: 20, right: 60, bottom: 60, left: 120};
-var width = 600 - margin.left - margin.right;
-var height = 500 - margin.top - margin.bottom;
-var svg = d3.select("#cars2017")
-      .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
     
 function drawOverview(data) {
 
