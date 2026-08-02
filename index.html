@@ -154,6 +154,22 @@ function drawOverview(data) {
         .text("Average Highway MPG");
     }
 
+    //add text to scene
+    svg.append("text")
+    .attr("x", width/2)
+    .attr("y", -5)
+    .attr("text-anchor", "middle")
+    .style("font-size", "18px")
+    .style("font-weight", "bold")
+    .text("Scene 1: Overall Fuel Economy");
+
+    svg.append("text")
+    .attr("x", width/2)
+    .attr("y", 15)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .text("Each point represents one vehicle from 2017.");
+
 function drawElectricVehicles(data) {
 
   // adds X axis with grid lines
@@ -207,7 +223,15 @@ function drawElectricVehicles(data) {
             return y(d.AverageHighwayMPG);
         })
         .attr("r",5)
-        .style("fill","red")
+        .style("fill", function(d){
+            if(d.Fuel == "Gasoline")
+                return "steelblue";
+            if(d.Fuel == "Diesel")
+                return "orange";
+            if(d.Fuel == "Electricity")
+                return "green";
+            return "gray";
+        })
         .style("stroke", "black")
         .style("stroke-width", "2px")
         .style("opacity", 0.8);
@@ -279,7 +303,15 @@ function drawExplore(data) {
             return y(d.AverageHighwayMPG);
         })
         .attr("r",5)
-        .style("fill","green")
+        .style("fill", function(d){
+            if(d.Fuel == "Gasoline")
+                return "steelblue";
+            if(d.Fuel == "Diesel")
+                return "orange";
+            if(d.Fuel == "Electricity")
+                return "green";
+            return "gray";
+        })
         .style("stroke", "black")
         .style("stroke-width", "2px")
         .style("opacity", 0.8);
