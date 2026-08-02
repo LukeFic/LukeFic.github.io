@@ -20,22 +20,19 @@ body {
 
 <body>
 
-    <body>
-
 <h1 style="text-align:center;">
     2017 Vehicle Fuel Economy
 </h1>
-
 <p style="text-align:center; width:700px; margin:auto;">
     This visualization explores the relationship between differnet models and types of cars' city and highway fuel economy.
     Each point represents a vehicle configuration from the 2017 vehicle fleet.
 </p>
-
 <div id="cars2017"></div>
 
-</body>
-
-<div id="cars2017"></div>
+<!-- Adds next button -->
+    <div style="text-align:center; margin-top:20px;">
+    <button id="nextButton">Next</button>
+</div>
 
 <script>
     
@@ -51,25 +48,41 @@ function drawScene(scene, data) { //switches between scenes; takes the scene num
         drawExplore(data);
     }
 }    
+    
+//imports data
+d3.csv("cars2017.csv").then(function(data) {        
+data.forEach(function(d){
+    d.AverageCityMPG = +d.AverageCityMPG;
+    d.AverageHighwayMPG = +d.AverageHighwayMPG;
 
-function drawOverview(data) {
+    drawScene(currentScene, data);
 
-    //positions the svg in the correct spot
-    var margin = {top: 20, right: 60, bottom: 60, left: 120};
-    var width = 600 - margin.left - margin.right;
-    var height = 500 - margin.top - margin.bottom;
-    var svg = d3.select("#cars2017")
+    //functionality for next button    
+    d3.select("#nextButton")
+    .on("click", function(){
+        currentScene++;
+        if(currentScene > 3){
+            currentScene = 1;
+        }
+        drawScene(currentScene, data);
+    });
+
+});
+})
+
+//positions the svg in the correct spot
+var margin = {top: 20, right: 60, bottom: 60, left: 120};
+var width = 600 - margin.left - margin.right;
+var height = 500 - margin.top - margin.bottom;
+var svg = d3.select("#cars2017")
       .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
       .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
-    d3.csv("cars2017.csv").then(function(data) {
-    data.forEach(function(d){
-        d.AverageCityMPG = +d.AverageCityMPG;
-        d.AverageHighwayMPG = +d.AverageHighwayMPG;
-    });
+    
+function drawOverview(data) {
 
   // adds X axis with grid lines
     var x = d3.scaleLinear()
@@ -139,8 +152,8 @@ function drawOverview(data) {
         .attr("y",-50)
         .style("text-anchor","middle")
         .text("Average Highway MPG");
-    })
-}
+    }
+
     
 </script>
 
