@@ -154,6 +154,150 @@ function drawOverview(data) {
         .text("Average Highway MPG");
     }
 
+function drawElectricVehicles(data) {
+
+  // adds X axis with grid lines
+    var x = d3.scaleLinear()
+    .domain([
+        d3.min(data, function(d){
+            return d.AverageCityMPG - 5;
+        }),
+        d3.max(data, function(d){
+            return d.AverageCityMPG + 5;
+        })
+        ])
+        .range([0,width]); 
+      svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .attr("class", "grid x-grid")
+    .call(d3.axisBottom(x)
+        .tickSizeInner(-height));
+
+  // add Y axis with grid lines
+    var y = d3.scaleLinear()
+    .domain([
+        d3.min(data, function(d){
+            return d.AverageHighwayMPG - 5;
+        }),
+        d3.max(data, function(d){
+            return d.AverageHighwayMPG + 5;
+        })
+        ])
+        .range([height,0]);
+      svg.append("g")
+    .attr("class", "grid x-grid")
+    .call(d3.axisLeft(y)
+        .tickSizeInner(-width));
+
+   //sets grid line characteristics     
+    svg.selectAll(".grid line")
+    .attr("stroke", "#e0e0e0")
+    .attr("stroke-opacity", 0.7);
+
+  // populate data
+    svg.append("g")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+            return x(d.AverageCityMPG);
+        })
+        .attr("cy", function(d){
+            return y(d.AverageHighwayMPG);
+        })
+        .attr("r",5)
+        .style("fill","red")
+        .style("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.8);
+
+    //adds axis titles
+     svg.append("text")
+        .attr("x",width/2)
+        .attr("y",height+45)
+        .style("text-anchor","middle")
+        .text("Average City MPG");
+    svg.append("text")
+        .attr("transform","rotate(-90)")
+        .attr("x",-height/2)
+        .attr("y",-50)
+        .style("text-anchor","middle")
+        .text("Average Highway MPG");
+    }
+
+function drawExplore(data) {
+
+  // adds X axis with grid lines
+    var x = d3.scaleLinear()
+    .domain([
+        d3.min(data, function(d){
+            return d.AverageCityMPG - 5;
+        }),
+        d3.max(data, function(d){
+            return d.AverageCityMPG + 5;
+        })
+        ])
+        .range([0,width]); 
+      svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .attr("class", "grid x-grid")
+    .call(d3.axisBottom(x)
+        .tickSizeInner(-height));
+
+  // add Y axis with grid lines
+    var y = d3.scaleLinear()
+    .domain([
+        d3.min(data, function(d){
+            return d.AverageHighwayMPG - 5;
+        }),
+        d3.max(data, function(d){
+            return d.AverageHighwayMPG + 5;
+        })
+        ])
+        .range([height,0]);
+      svg.append("g")
+    .attr("class", "grid x-grid")
+    .call(d3.axisLeft(y)
+        .tickSizeInner(-width));
+
+   //sets grid line characteristics     
+    svg.selectAll(".grid line")
+    .attr("stroke", "#e0e0e0")
+    .attr("stroke-opacity", 0.7);
+
+  // populate data
+    svg.append("g")
+        .selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+            return x(d.AverageCityMPG);
+        })
+        .attr("cy", function(d){
+            return y(d.AverageHighwayMPG);
+        })
+        .attr("r",5)
+        .style("fill","green")
+        .style("stroke", "black")
+        .style("stroke-width", "2px")
+        .style("opacity", 0.8);
+
+    //adds axis titles
+     svg.append("text")
+        .attr("x",width/2)
+        .attr("y",height+45)
+        .style("text-anchor","middle")
+        .text("Average City MPG");
+    svg.append("text")
+        .attr("transform","rotate(-90)")
+        .attr("x",-height/2)
+        .attr("y",-50)
+        .style("text-anchor","middle")
+        .text("Average Highway MPG");
+    }
+
     
 </script>
 
